@@ -1,4 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
+
+interface Activity {
+  id: number;
+  name: string;
+  time: string;
+  type: string;
+}
+
+interface City {
+  id: number;
+  name: string;
+  activities: Activity[];
+}
 
 interface ItineraryBuilderProps {
   onBack: () => void;
@@ -7,105 +20,283 @@ interface ItineraryBuilderProps {
 export const ItineraryBuilder: React.FC<ItineraryBuilderProps> = ({
   onBack,
 }) => {
-  const [cities, setCities] = useState<string[]>([]);
-  const [city, setCity] = useState('');
+  const [cities, setCities] = useState<City[]>([]);
+
+  const [city, setCity] = useState("");
+
+  const [selectedCity, setSelectedCity] = useState<number | null>(null);
+
+  const [activityName, setActivityName] = useState("");
+  const [activityTime, setActivityTime] = useState("");
+  const [activityType, setActivityType] = useState("Sightseeing");
+
+  // -------------------------
+  // ADD CITY
+  // -------------------------
 
   const addCity = () => {
     if (!city.trim()) return;
 
-    setCities((prev) => [...prev, city.trim()]);
-    setCity('');
+    const newCity: City = {
+      id: Date.now(),
+      name: city.trim(),
+      activities: [],
+    };
+
+    setCities((prev) => [...prev, newCity]);
+    setCity("");
   };
 
+  // -------------------------
+  // REMOVE CITY
+  // -------------------------
+
+  const removeCity = (cityId: number) => {
+    setCities((prev) => prev.filter((item) => item.id !== cityId));
+
+    if (selectedCity === cityId) {
+      setSelectedCity(null);
+    }
+  };
+
+  // -------------------------
+  // SELECT CITY
+  // -------------------------
+
+  const selectCity = (cityId: number) => {
+    setSelectedCity(cityId);
+
+    setActivityName("");
+    setActivityTime("");
+    setActivityType("Sightseeing");
+  };
+
+  // -------------------------
+  // ADD ACTIVITY
+  // -------------------------
+
+  const addActivity = () => {
+    if (selectedCity === null) return;
+    if (!activityName.trim()) return;
+
+    const newActivity: Activity = {
+      id: Date.now(),
+      name: activityName.trim(),
+      time: activityTime,
+      type: activityType,
+    };
+
+    setCities((prev) =>
+      prev.map((item) =>
+        item.id === selectedCity
+          ? {
+              ...item,
+              activities: [...item.activities, newActivity],
+            }
+          : item
+      )
+    );
+
+    setActivityName("");
+    setActivityTime("");
+    setActivityType("Sightseeing");
+  };
+
+  // -------------------------
+  // REMOVE ACTIVITY
+  // -------------------------
+
+  const removeActivity = (cityId: number, activityId: number) => {
+    setCities((prev) =>
+      prev.map((item) =>
+        item.id === cityId
+          ? {
+              ...item,
+              activities: item.activities.filter(
+                (activity) => activity.id !== activityId
+              ),
+            }
+          : item
+      )
+    );
+  };
+
+  // -------------------------
+  // UI
+  // -------------------------
+
   return (
-    <main className="min-h-screen bg-slate-950 text-white px-6 py-10">
-      <div className="max-w-5xl mx-auto">
+    <div className="itinerary-page">
 
-        <button
-          type="button"
-          onClick={onBack}
-          className="mb-8 text-slate-300 hover:text-white"
-        >
-          ← Back
-        </button>
+      {/* BACK BUTTON */}
 
-        <div className="mb-8">
-          <h1 className="text-4xl font-bold">
-            Itinerary Builder
-          </h1>
+      <button className="back-button" onClick={onBack}>
+        ← Back
+      </button>
 
-          <p className="text-slate-400 mt-2">
-            Build your trip day by day.
-          </p>
+      {/* HEADER */}
+
+      <h1>Itinerary Builder</h1>
+
+      <p className="itinerary-subtitle">
+        Build your trip day by day.
+      </p>
+
+      {/* ADD CITY */}
+
+      <section className="itinerary-form">
+        <h2>🌍 Add a City</h2>
+
+        <div className="input-row">
+          <input
+            type="text"
+            value={city}
+            onChange={(e) => setCity(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                addCity();
+              }
+            }}
+            placeholder="e.g. Paris"
+          />
+
+          <button className="primary-button" onClick={addCity}>
+            + Add City
+          </button>
         </div>
+      </section>
 
-        {/* Add City */}
-        <div className="bg-slate-900 rounded-2xl p-6 mb-8">
-          <h2 className="text-2xl font-semibold mb-4">
-            Add a City
-          </h2>
+      {/* ACTIVITY FORM */}
 
-          <div className="flex gap-3">
+      {selectedCity !== null && (
+        <section className="activity-form">
+          <h2>✨ Add Activity</h2>
+
+          <div className="input-row">
+
             <input
               type="text"
-              value={city}
-              onChange={(e) => setCity(e.target.value)}
-              onKeyDown={(e) => {
-                if (e.key === 'Enter') {
-                  addCity();
-                }
-              }}
-              placeholder="e.g. Paris"
-              className="flex-1 rounded-lg bg-slate-800 border border-slate-700 px-4 py-3 text-white"
+              value={activityName}
+              onChange={(e) => setActivityName(e.target.value)}
+              placeholder="Activity name"
             />
 
-            <button
-              type="button"
-              onClick={addCity}
-              className="rounded-lg bg-purple-600 hover:bg-purple-700 px-6 py-3 font-semibold"
+            <input
+              type="time"
+              value={activityTime}
+              onChange={(e) => setActivityTime(e.target.value)}
+            />
+
+            <select
+              value={activityType}
+              onChange={(e) => setActivityType(e.target.value)}
             >
-              Add City
+              <option value="Sightseeing">Sightseeing</option>
+              <option value="Food">Food</option>
+              <option value="Shopping">Shopping</option>
+              <option value="Adventure">Adventure</option>
+              <option value="Relaxation">Relaxation</option>
+              <option value="Transport">Transport</option>
+            </select>
+
+            <button className="primary-button" onClick={addActivity}>
+              + Add Activity
             </button>
+
           </div>
-        </div>
+        </section>
+      )}
 
-        {/* City List */}
-        <div className="bg-slate-900 rounded-2xl p-6">
-          <h2 className="text-2xl font-semibold mb-5">
-            Your Itinerary
-          </h2>
+      {/* ITINERARY */}
 
-          {cities.length === 0 ? (
-            <div className="border-2 border-dashed border-slate-700 rounded-xl p-10 text-center">
-              <p className="text-slate-400">
-                Add your first city to start planning.
-              </p>
-            </div>
-          ) : (
-            <div className="space-y-4">
-              {cities.map((cityName, index) => (
-                <div
-                  key={`${cityName}-${index}`}
-                  className="bg-slate-800 rounded-xl p-5"
-                >
-                  <p className="text-sm text-purple-400">
-                    City {index + 1}
-                  </p>
+      <section className="itinerary-container">
 
-                  <h3 className="text-xl font-semibold mt-1">
-                    {cityName}
-                  </h3>
+        <h2>✈️ Your Itinerary</h2>
 
-                  <p className="text-slate-400 mt-2">
-                    Add activities and places for this city.
-                  </p>
+        {cities.length === 0 ? (
+          <p className="itinerary-subtitle">
+            Add your first city to start planning.
+          </p>
+        ) : (
+          cities.map((item, index) => (
+            <div className="day-card" key={item.id}>
+
+              {/* DAY HEADER */}
+
+              <div className="day-title">
+
+                <h3>
+                  <span className="day-number">
+                    Day {index + 1}
+                  </span>
+                  {" : "}
+                  {item.name}
+                </h3>
+
+                <div>
+                  <button
+                    className="secondary-button"
+                    onClick={() => selectCity(item.id)}
+                  >
+                    + Add Activity
+                  </button>
+
+                  <button
+                    className="danger-button"
+                    onClick={() => removeCity(item.id)}
+                  >
+                    Remove City
+                  </button>
                 </div>
-              ))}
-            </div>
-          )}
-        </div>
 
-      </div>
-    </main>
+              </div>
+
+              {/* ACTIVITIES */}
+
+              {item.activities.length === 0 ? (
+                <p className="activity-details">
+                  No activities added yet.
+                </p>
+              ) : (
+                item.activities.map((activity) => (
+                  <div
+                    className="activity-card"
+                    key={activity.id}
+                  >
+
+                    <h4>
+                      📍 {activity.name}
+                    </h4>
+
+                    <p className="activity-details">
+                      {activity.time
+                        ? `🕐 ${activity.time}`
+                        : "🕐 Time not set"}
+                      {" • "}
+                      {activity.type}
+                    </p>
+
+                    <button
+                      className="danger-button"
+                      onClick={() =>
+                        removeActivity(item.id, activity.id)
+                      }
+                    >
+                      Remove Activity
+                    </button>
+
+                  </div>
+                ))
+              )}
+
+            </div>
+          ))
+        )}
+
+      </section>
+
+    </div>
   );
 };
+
+export default ItineraryBuilder;
