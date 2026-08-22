@@ -1,0 +1,63 @@
+.navbar-public {
+  width: 100%;
+  min-height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  box-sizing: border-box;
+  background-color: #ffffff;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.navbar-public-logo {
+  background: none;
+  border: none;
+  padding: 0;
+  color: #2563eb;
+  font-size: 22px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.navbar-public-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.navbar-public-login,
+.navbar-public-signup {
+  padding: 9px 16px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.navbar-public-login {
+  background: transparent;
+  border: 1px solid #e2e8f0;
+  color: #0f172a;
+}
+
+.navbar-public-signup {
+  background-color: #2563eb;
+  border: 1px solid #2563eb;
+  color: #ffffff;
+}
+
+@media (max-width: 768px) {
+  .navbar-public {
+    padding: 0 16px;
+  }
+
+  .navbar-public-actions {
+    gap: 8px;
+  }
+
+  .navbar-public-login,
+  .navbar-public-signup {
+    padding: 8px 12px;
+  }
+}

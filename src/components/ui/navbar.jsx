@@ -5,6 +5,7 @@ const Navbar = ({
   logo = "Globe-Trotter",
   links = [],
   onLogoClick,
+  onMenuClick,
 }) => {
   return (
     <nav className="navbar">
@@ -27,6 +28,16 @@ const Navbar = ({
           </a>
         ))}
       </div>
+
+      {/* Mobile Hamburger */}
+      <button
+        type="button"
+        className="navbar-menu-button"
+        onClick={onMenuClick}
+        aria-label="Open navigation menu"
+      >
+        ☰
+      </button>
     </nav>
   );
 };

@@ -1,0 +1,117 @@
+/* =========================================
+   SKELETON BASE
+========================================= */
+
+.skeleton {
+  display: block;
+
+  position: relative;
+
+  overflow: hidden;
+
+  background: var(--color-border, #e2e8f0);
+
+  border-radius: 8px;
+
+  flex-shrink: 0;
+}
+
+/* =========================================
+   VARIANTS
+========================================= */
+
+.skeleton-text {
+  border-radius: 6px;
+}
+
+.skeleton-rect {
+  border-radius: 10px;
+}
+
+.skeleton-rounded {
+  border-radius: 14px;
+}
+
+.skeleton-circle {
+  width: 48px;
+  height: 48px;
+
+  border-radius: 50%;
+}
+
+/* =========================================
+   SHIMMER
+========================================= */
+
+.skeleton-shimmer::after {
+  content: "";
+
+  position: absolute;
+  inset: 0;
+
+  transform: translateX(-100%);
+
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.55) 50%,
+    transparent 100%
+  );
+
+  animation: skeleton-shimmer 1.6s ease-in-out infinite;
+}
+
+/* =========================================
+   PULSE
+========================================= */
+
+.skeleton-pulse {
+  animation: skeleton-pulse 1.6s ease-in-out infinite;
+}
+
+/* =========================================
+   STATIC
+========================================= */
+
+.skeleton-static {
+  animation: none;
+}
+
+.skeleton-static::after {
+  display: none;
+}
+
+/* =========================================
+   ANIMATIONS
+========================================= */
+
+@keyframes skeleton-shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes skeleton-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.55;
+  }
+}
+
+/* =========================================
+   ACCESSIBILITY
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .skeleton-pulse {
+    animation: none;
+  }
+
+  .skeleton-shimmer::after {
+    display: none;
+  }
+}

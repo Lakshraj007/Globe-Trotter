@@ -1,0 +1,297 @@
+/* =========================================
+   TABS
+========================================= */
+
+.tabs {
+  width: 100%;
+  min-width: 0;
+}
+
+/* =========================================
+   TABS LIST
+========================================= */
+
+.tabs-list {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+
+  width: 100%;
+
+  border-bottom: 1px solid var(--color-border, #e2e8f0);
+}
+
+/* =========================================
+   TAB BUTTON
+========================================= */
+
+.tab {
+  position: relative;
+
+  min-height: 44px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 8px;
+
+  padding: 10px 16px;
+
+  border: none;
+  border-radius: 8px 8px 0 0;
+
+  background: transparent;
+  color: var(--color-text-secondary, #64748b);
+
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+
+  white-space: nowrap;
+
+  cursor: pointer;
+
+  transition:
+    color 0.2s ease,
+    background-color 0.2s ease;
+}
+
+/* =========================================
+   TAB HOVER
+========================================= */
+
+.tab:not(:disabled):hover {
+  color: var(--color-text, #0f172a);
+  background: var(--color-background, #f8fafc);
+}
+
+/* =========================================
+   ACTIVE TAB
+========================================= */
+
+.tab-active {
+  color: var(--color-primary, #2563eb);
+}
+
+.tab-active::after {
+  content: "";
+
+  position: absolute;
+
+  left: 12px;
+  right: 12px;
+  bottom: -1px;
+
+  height: 2px;
+
+  background: var(--color-primary, #2563eb);
+
+  border-radius: 999px 999px 0 0;
+
+  animation: tab-indicator 0.2s ease;
+}
+
+/* =========================================
+   ICON
+========================================= */
+
+.tab-icon {
+  width: 18px;
+  height: 18px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  font-size: 16px;
+}
+
+/* =========================================
+   LABEL
+========================================= */
+
+.tab-label {
+  display: inline-flex;
+  align-items: center;
+}
+
+/* =========================================
+   BADGE
+========================================= */
+
+.tab-badge {
+  min-width: 20px;
+  height: 20px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0 6px;
+
+  border-radius: 999px;
+
+  background: var(--color-background, #f8fafc);
+  color: var(--color-text-secondary, #64748b);
+
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+/* =========================================
+   DISABLED
+========================================= */
+
+.tab:disabled,
+.tab-disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.tab:disabled:hover {
+  background: transparent;
+  color: var(--color-text-secondary, #64748b);
+}
+
+/* =========================================
+   FOCUS
+========================================= */
+
+.tab:focus-visible {
+  outline: 3px solid rgba(37, 99, 235, 0.25);
+  outline-offset: -3px;
+}
+
+/* =========================================
+   FULL WIDTH
+========================================= */
+
+.tabs-full-width .tab {
+  flex: 1;
+}
+
+/* =========================================
+   PILL VARIANT
+========================================= */
+
+.tabs-pills .tabs-list {
+  padding: 4px;
+
+  border: none;
+
+  background: var(--color-background, #f8fafc);
+
+  border-radius: 12px;
+}
+
+.tabs-pills .tab {
+  border-radius: 9px;
+
+  min-height: 40px;
+}
+
+.tabs-pills .tab-active {
+  background: var(--color-surface, #ffffff);
+
+  color: var(--color-primary, #2563eb);
+
+  box-shadow:
+    0 1px 3px rgba(15, 23, 42, 0.08);
+}
+
+.tabs-pills .tab-active::after {
+  display: none;
+}
+
+/* =========================================
+   TAB PANEL
+========================================= */
+
+.tab-panel {
+  padding: 24px 4px;
+
+  color: var(--color-text, #0f172a);
+
+  font-size: 14px;
+  line-height: 1.6;
+
+  animation: tab-panel-enter 0.2s ease;
+}
+
+.tab-panel:focus-visible {
+  outline: 3px solid rgba(37, 99, 235, 0.2);
+  outline-offset: 4px;
+  border-radius: 8px;
+}
+
+/* =========================================
+   ANIMATIONS
+========================================= */
+
+@keyframes tab-indicator {
+  from {
+    transform: scaleX(0.4);
+    opacity: 0;
+  }
+
+  to {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+}
+
+@keyframes tab-panel-enter {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 640px) {
+  .tabs-list {
+    overflow-x: auto;
+
+    scrollbar-width: none;
+  }
+
+  .tabs-list::-webkit-scrollbar {
+    display: none;
+  }
+
+  .tab {
+    min-height: 42px;
+
+    padding: 9px 13px;
+
+    font-size: 13px;
+  }
+
+  .tab-panel {
+    padding: 20px 2px;
+  }
+}
+
+/* =========================================
+   REDUCED MOTION
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .tab-active::after,
+  .tab-panel {
+    animation: none;
+  }
+}
