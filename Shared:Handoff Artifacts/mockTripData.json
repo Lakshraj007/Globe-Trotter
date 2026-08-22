@@ -1,0 +1,234 @@
+{
+  "trip": {
+    "id": "trip_001",
+    "userId": "user_amara",
+    "name": "Lisbon & Porto",
+    "startDate": "2026-09-14",
+    "endDate": "2026-09-20",
+    "description": "A week of tiled streets, pastel de nata, and port wine cellars.",
+    "coverPhotoUrl": null,
+    "isPublic": false,
+    "shareId": null,
+    "createdAt": "2026-08-01T09:12:00Z",
+    "updatedAt": "2026-08-20T17:45:00Z"
+  },
+  "cityStops": [
+    {
+      "id": "stop_lisbon",
+      "tripId": "trip_001",
+      "order": 1,
+      "cityName": "Lisbon",
+      "country": "Portugal",
+      "startDate": "2026-09-14",
+      "endDate": "2026-09-17",
+      "accommodationCost": 420,
+      "travelToThisStop": null,
+      "days": [
+        {
+          "id": "day_lis_1",
+          "cityStopId": "stop_lisbon",
+          "date": "2026-09-14",
+          "dayNumber": 1,
+          "activities": [
+            {
+              "id": "act_001",
+              "dayId": "day_lis_1",
+              "order": 1,
+              "time": "09:00",
+              "name": "Belém Tower",
+              "category": "Sightseeing",
+              "location": "Belém",
+              "durationMinutes": 90,
+              "cost": 10,
+              "notes": "Buy the combined ticket with Jerónimos Monastery."
+            },
+            {
+              "id": "act_002",
+              "dayId": "day_lis_1",
+              "order": 2,
+              "time": "11:00",
+              "name": "Pastéis de Belém",
+              "category": "Food",
+              "location": "Belém",
+              "durationMinutes": 45,
+              "cost": 12,
+              "notes": "Expect a line, worth it."
+            },
+            {
+              "id": "act_003",
+              "dayId": "day_lis_1",
+              "order": 3,
+              "time": "19:00",
+              "name": "Fado dinner show",
+              "category": "Food",
+              "location": "Alfama",
+              "durationMinutes": 150,
+              "cost": 65,
+              "notes": "Reserve ahead — small venues fill up."
+            }
+          ]
+        },
+        {
+          "id": "day_lis_2",
+          "cityStopId": "stop_lisbon",
+          "date": "2026-09-15",
+          "dayNumber": 2,
+          "activities": [
+            {
+              "id": "act_004",
+              "dayId": "day_lis_2",
+              "order": 1,
+              "time": "10:00",
+              "name": "Tram 28 ride",
+              "category": "Sightseeing",
+              "location": "Graça to Estrela",
+              "durationMinutes": 60,
+              "cost": 3,
+              "notes": "Board early to avoid the tourist crowds."
+            },
+            {
+              "id": "act_005",
+              "dayId": "day_lis_2",
+              "order": 2,
+              "time": "14:00",
+              "name": "LX Factory",
+              "category": "Other",
+              "location": "Alcântara",
+              "durationMinutes": 120,
+              "cost": 0,
+              "notes": "Shops, murals, bookstore café."
+            }
+          ]
+        },
+        {
+          "id": "day_lis_3",
+          "cityStopId": "stop_lisbon",
+          "date": "2026-09-16",
+          "dayNumber": 3,
+          "activities": [
+            {
+              "id": "act_006",
+              "dayId": "day_lis_3",
+              "order": 1,
+              "time": "09:30",
+              "name": "Day trip to Sintra",
+              "category": "Transport",
+              "location": "Sintra",
+              "durationMinutes": 480,
+              "cost": 55,
+              "notes": "Train from Rossio + Pena Palace entry."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "stop_porto",
+      "tripId": "trip_001",
+      "order": 2,
+      "cityName": "Porto",
+      "country": "Portugal",
+      "startDate": "2026-09-17",
+      "endDate": "2026-09-20",
+      "accommodationCost": 300,
+      "travelToThisStop": {
+        "mode": "train",
+        "cost": 25,
+        "durationMinutes": 165
+      },
+      "days": [
+        {
+          "id": "day_por_1",
+          "cityStopId": "stop_porto",
+          "date": "2026-09-17",
+          "dayNumber": 1,
+          "activities": [
+            {
+              "id": "act_007",
+              "dayId": "day_por_1",
+              "order": 1,
+              "time": "15:00",
+              "name": "Livraria Lello",
+              "category": "Sightseeing",
+              "location": "Baixa",
+              "durationMinutes": 45,
+              "cost": 8,
+              "notes": "Buy timed-entry ticket online in advance."
+            },
+            {
+              "id": "act_008",
+              "dayId": "day_por_1",
+              "order": 2,
+              "time": "18:00",
+              "name": "Port wine tasting",
+              "category": "Food",
+              "location": "Vila Nova de Gaia",
+              "durationMinutes": 90,
+              "cost": 30,
+              "notes": "Graham's or Ferreira both good picks."
+            }
+          ]
+        },
+        {
+          "id": "day_por_2",
+          "cityStopId": "stop_porto",
+          "date": "2026-09-18",
+          "dayNumber": 2,
+          "activities": [
+            {
+              "id": "act_009",
+              "dayId": "day_por_2",
+              "order": 1,
+              "time": "10:00",
+              "name": "Dom Luís I Bridge walk",
+              "category": "Sightseeing",
+              "location": "Ribeira",
+              "durationMinutes": 60,
+              "cost": 0,
+              "notes": "Upper deck has the best river views."
+            },
+            {
+              "id": "act_010",
+              "dayId": "day_por_2",
+              "order": 2,
+              "time": "13:00",
+              "name": "Francesinha lunch",
+              "category": "Food",
+              "location": "Baixa",
+              "durationMinutes": 60,
+              "cost": 15,
+              "notes": null
+            }
+          ]
+        },
+        {
+          "id": "day_por_3",
+          "cityStopId": "stop_porto",
+          "date": "2026-09-19",
+          "dayNumber": 3,
+          "activities": []
+        },
+        {
+          "id": "day_por_4",
+          "cityStopId": "stop_porto",
+          "date": "2026-09-20",
+          "dayNumber": 4,
+          "activities": [
+            {
+              "id": "act_011",
+              "dayId": "day_por_4",
+              "order": 1,
+              "time": "11:00",
+              "name": "Flight home",
+              "category": "Transport",
+              "location": "Porto Airport (OPO)",
+              "durationMinutes": 0,
+              "cost": 180,
+              "notes": null
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
