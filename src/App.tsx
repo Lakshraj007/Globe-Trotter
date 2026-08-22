@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import './App.css';
+
 import { Dashboard } from './features/dashboard';
 import { CreateTrip } from './features/dashboard/create trip/createtrip';
 import { ItineraryBuilder } from './features/itinerary-builder/ItineraryBuilder';

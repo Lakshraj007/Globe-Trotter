@@ -1,6 +1,13 @@
-import React, { useState, useMemo } from 'react';
-import { Trip, Destination, DashboardFilter, DashboardStats } from './types';
+import React, { useMemo, useState } from 'react';
+import {
+  Trip,
+  Destination,
+  DashboardFilter,
+  DashboardStats,
+} from './types';
+
 import { MOCK_TRIPS, MOCK_DESTINATIONS } from './mockData';
+
 import { DashboardHeader } from './components/DashboardHeader';
 import { TripSpotlightCard } from './components/TripSpotlightCard';
 import { TripGrid } from './components/TripGrid';
@@ -27,7 +34,7 @@ export interface DashboardProps {
 }
 
 export const Dashboard: React.FC<DashboardProps> = ({
-  userName = 'Alex',
+  userName = 'Heet',
   initialTrips = MOCK_TRIPS,
   initialDestinations = MOCK_DESTINATIONS,
   isLoading = false,
@@ -45,7 +52,6 @@ export const Dashboard: React.FC<DashboardProps> = ({
   const [filter, setFilter] = useState<DashboardFilter>('all');
   const [searchQuery, setSearchQuery] = useState('');
 
-  // Handle local trip deletion if not controlled externally
   const handleDeleteTrip = (tripId: string) => {
     if (onDeleteTrip) {
       onDeleteTrip(tripId);
@@ -54,7 +60,6 @@ export const Dashboard: React.FC<DashboardProps> = ({
     }
   };
 
-  // Compute upcoming spotlight trip (first upcoming trip)
   const spotlightTrip = useMemo(() => {
     return trips.find(
       (t) =>
@@ -64,23 +69,26 @@ export const Dashboard: React.FC<DashboardProps> = ({
     );
   }, [trips]);
 
-  // Filter & search trips
   const filteredTrips = useMemo(() => {
     return trips.filter((trip) => {
-      // 1. Status Filter
       if (filter !== 'all' && trip.status !== filter) {
         return false;
       }
 
-      // 2. Search Query (matches trip title, description, or city names)
       if (searchQuery.trim()) {
         const query = searchQuery.toLowerCase();
+
         const matchesTitle = trip.title.toLowerCase().includes(query);
-        const matchesDesc = trip.description?.toLowerCase().includes(query);
-        const matchesCity = trip.cityStops.some((stop) =>
-          stop.cityName.toLowerCase().includes(query) ||
-          stop.country.toLowerCase().includes(query)
+
+        const matchesDesc =
+          trip.description?.toLowerCase().includes(query);
+
+        const matchesCity = trip.cityStops.some(
+          (stop) =>
+            stop.cityName.toLowerCase().includes(query) ||
+            stop.country.toLowerCase().includes(query)
         );
+
         return matchesTitle || matchesDesc || matchesCity;
       }
 
@@ -88,13 +96,16 @@ export const Dashboard: React.FC<DashboardProps> = ({
     });
   }, [trips, filter, searchQuery]);
 
-  // Compute summary stats for header & budget highlight card
   const stats: DashboardStats = useMemo(() => {
-    const upcomingTrips = trips.filter((t) => t.status === 'upcoming');
+    const upcomingTrips = trips.filter(
+      (t) => t.status === 'upcoming'
+    );
+
     const totalEstimatedCost = upcomingTrips.reduce(
       (sum, t) => sum + t.budget.totalEstimated,
       0
     );
+
     const overBudgetCount = upcomingTrips.filter(
       (t) => t.budget.status === 'over'
     ).length;
@@ -106,90 +117,242 @@ export const Dashboard: React.FC<DashboardProps> = ({
     };
   }, [trips]);
 
-  // 1. Loading Skeleton State
   if (isLoading) {
     return (
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-        <DashboardSkeleton />
+      <main className="dashboard-page">
+        <div className="dashboard-container">
+          <DashboardSkeleton />
+        </div>
       </main>
     );
   }
 
-  // 2. Error State
   if (isError) {
     return (
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-        <DashboardErrorState message={errorMessage} onRetry={onRetry} />
+      <main className="dashboard-page">
+        <div className="dashboard-container">
+          <DashboardErrorState
+            message={errorMessage}
+            onRetry={onRetry}
+          />
+        </div>
       </main>
     );
   }
 
-  // 3. User Zero-Trips Empty State
   if (trips.length === 0) {
     return (
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-        <DashboardHeader
-          userName={userName}
-          upcomingCount={0}
-          onPlanNewTrip={onPlanNewTrip}
-        />
-        <DashboardEmptyState
-          destinations={initialDestinations}
-          onPlanFirstTrip={onPlanNewTrip}
-          onAddDestination={onAddDestination}
-        />
-      </main>
-    );
-  }
-
-  // 4. Populated Dashboard
-  return (
-    <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-      {/* Header with "+ Plan New Trip" CTA */}
-      <DashboardHeader
-        userName={userName}
-        upcomingCount={stats.upcomingCount}
-        onPlanNewTrip={onPlanNewTrip}
-      />
-
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-        {/* Main Column */}
-        <div className="lg:col-span-8 xl:col-span-9 space-y-6">
-          {/* Spotlight card shown when viewing all/upcoming and upcoming trip exists without active search */}
-          {spotlightTrip && (filter === 'all' || filter === 'upcoming') && !searchQuery && (
-            <TripSpotlightCard
-              trip={spotlightTrip}
-              onContinuePlanning={onSelectTrip}
-            />
-          )}
-
-          {/* Your Trips Grid with Search & Status Filters */}
-          <TripGrid
-            trips={filteredTrips}
-            filter={filter}
-            onFilterChange={setFilter}
-            searchQuery={searchQuery}
-            onSearchChange={setSearchQuery}
-            onSelectTrip={onSelectTrip}
-            onShareTrip={onShareTrip}
-            onDeleteTrip={handleDeleteTrip}
+      <main className="dashboard-page">
+        <div className="dashboard-container">
+          <DashboardHeader
+            userName={userName}
+            upcomingCount={0}
+            onPlanNewTrip={onPlanNewTrip}
           />
 
-          {/* Get Inspired Destination Recommendations */}
-          <GetInspiredRail
+          <DashboardEmptyState
             destinations={initialDestinations}
+            onPlanFirstTrip={onPlanNewTrip}
             onAddDestination={onAddDestination}
           />
         </div>
+      </main>
+    );
+  }
 
-        {/* Desktop-only Right Rail: Ambient Budget Highlights (§7.4) */}
-        <div className="hidden lg:block lg:col-span-4 xl:col-span-3 space-y-6">
-          <BudgetHighlightsCard
-            stats={stats}
-            onViewBudgetBreakdown={onViewBudgetBreakdown}
-          />
+  return (
+    <main className="dashboard-page">
+
+      <div className="dashboard-container">
+
+        {/* HEADER */}
+
+        <div className="dashboard-top">
+          <div>
+            <p className="dashboard-eyebrow">
+              YOUR TRAVEL SPACE
+            </p>
+
+            <h1 className="dashboard-title">
+              Welcome back, {userName}
+            </h1>
+
+            <p className="dashboard-subtitle">
+              Plan your next adventure and keep every trip organized.
+            </p>
+          </div>
+
+          <button
+            className="dashboard-plan-button"
+            onClick={onPlanNewTrip}
+          >
+            <span className="plus-icon">+</span>
+            Plan New Trip
+          </button>
         </div>
+
+        {/* STATS */}
+
+        <div className="dashboard-stats">
+
+          <div className="stat-card">
+            <div className="stat-icon">✈️</div>
+
+            <div>
+              <span>Upcoming Trips</span>
+              <strong>{stats.upcomingCount}</strong>
+            </div>
+          </div>
+
+          <div className="stat-card">
+            <div className="stat-icon">💰</div>
+
+            <div>
+              <span>Estimated Budget</span>
+              <strong>
+                ₹{stats.totalEstimatedCost.toLocaleString()}
+              </strong>
+            </div>
+          </div>
+
+          <div className="stat-card">
+            <div className="stat-icon">🌍</div>
+
+            <div>
+              <span>Trips Planned</span>
+              <strong>{trips.length}</strong>
+            </div>
+          </div>
+
+        </div>
+
+        {/* MAIN CONTENT */}
+
+        <div className="dashboard-layout">
+
+          <div className="dashboard-main">
+
+            {/* FEATURED TRIP */}
+
+            {spotlightTrip &&
+              (filter === 'all' || filter === 'upcoming') &&
+              !searchQuery && (
+                <section className="featured-section">
+
+                  <div className="section-heading">
+                    <div>
+                      <p className="section-label">
+                        NEXT ADVENTURE
+                      </p>
+
+                      <h2>
+                        Your upcoming trip
+                      </h2>
+                    </div>
+                  </div>
+
+                  <div className="spotlight-wrapper">
+                    <TripSpotlightCard
+                      trip={spotlightTrip}
+                      onContinuePlanning={onSelectTrip}
+                    />
+                  </div>
+
+                </section>
+              )}
+
+            {/* YOUR TRIPS */}
+
+            <section className="trips-section">
+
+              <div className="section-heading">
+                <div>
+                  <p className="section-label">
+                    YOUR JOURNEYS
+                  </p>
+
+                  <h2>
+                    Your Trips
+                  </h2>
+                </div>
+              </div>
+
+              <TripGrid
+                trips={filteredTrips}
+                filter={filter}
+                onFilterChange={setFilter}
+                searchQuery={searchQuery}
+                onSearchChange={setSearchQuery}
+                onSelectTrip={onSelectTrip}
+                onShareTrip={onShareTrip}
+                onDeleteTrip={handleDeleteTrip}
+              />
+
+            </section>
+
+            {/* INSPIRATION */}
+
+            <section className="inspiration-section">
+
+              <div className="section-heading">
+                <div>
+                  <p className="section-label">
+                    GET INSPIRED
+                  </p>
+
+                  <h2>
+                    Where will you go next?
+                  </h2>
+                </div>
+              </div>
+
+              <GetInspiredRail
+                destinations={initialDestinations}
+                onAddDestination={onAddDestination}
+              />
+
+            </section>
+
+          </div>
+
+          {/* RIGHT SIDEBAR */}
+
+          <aside className="dashboard-sidebar">
+
+            <BudgetHighlightsCard
+              stats={stats}
+              onViewBudgetBreakdown={onViewBudgetBreakdown}
+            />
+
+            <div className="travel-tip-card">
+
+              <div className="tip-icon">
+                💡
+              </div>
+
+              <p className="tip-label">
+                TRAVEL TIP
+              </p>
+
+              <h3>
+                Plan experiences, not just destinations.
+              </h3>
+
+              <p>
+                Add activities to your itinerary so your trip
+                feels complete before you even leave.
+              </p>
+
+            </div>
+
+          </aside>
+
+        </div>
+
       </div>
+
     </main>
   );
 };
+
+export default Dashboard;
