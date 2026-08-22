@@ -1,0 +1,156 @@
+import { Trip, Destination } from './types';
+
+/**
+ * Simple local mock data for Person C Dashboard.
+ * Easily replaceable with API calls or Person A's fixture JSON later.
+ */
+
+export const MOCK_TRIPS: Trip[] = [
+  {
+    id: 'trip-1',
+    title: 'European Summer Getaway',
+    description: 'A 12-day multi-city journey across France, Italy, and Spain.',
+    startDate: '2026-09-04',
+    endDate: '2026-09-16',
+    status: 'upcoming',
+    isPublic: true,
+    coverPhotoUrl: 'https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=1200&q=80',
+    daysUntilDeparture: 13,
+    budget: {
+      totalEstimated: 2480,
+      budgetCap: 2800,
+      status: 'under',
+      currency: '$',
+    },
+    cityStops: [
+      { id: 'cs-1', cityName: 'Paris', country: 'France', nights: 4, orderIndex: 1 },
+      { id: 'cs-2', cityName: 'Rome', country: 'Italy', nights: 4, orderIndex: 2 },
+      { id: 'cs-3', cityName: 'Barcelona', country: 'Spain', nights: 4, orderIndex: 3 },
+    ],
+    updatedAt: '2 hours ago',
+  },
+  {
+    id: 'trip-2',
+    title: 'Japan Autumn Discovery',
+    description: 'Exploring temples, traditional gardens, and culinary hotspots.',
+    startDate: '2026-10-10',
+    endDate: '2026-10-22',
+    status: 'upcoming',
+    isPublic: false,
+    coverPhotoUrl: 'https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&w=800&q=80',
+    daysUntilDeparture: 49,
+    budget: {
+      totalEstimated: 3150,
+      budgetCap: 3000,
+      status: 'over',
+      currency: '$',
+    },
+    cityStops: [
+      { id: 'cs-4', cityName: 'Tokyo', country: 'Japan', nights: 5, orderIndex: 1 },
+      { id: 'cs-5', cityName: 'Kyoto', country: 'Japan', nights: 4, orderIndex: 2 },
+      { id: 'cs-6', cityName: 'Osaka', country: 'Japan', nights: 3, orderIndex: 3 },
+    ],
+    updatedAt: 'Yesterday',
+  },
+  {
+    id: 'trip-3',
+    title: 'Scandinavian Fjords & Cities',
+    description: 'Draft itinerary connecting vibrant Nordic capitals with fjord nature.',
+    startDate: '2027-05-15',
+    endDate: '2027-05-26',
+    status: 'draft',
+    isPublic: false,
+    coverPhotoUrl: 'https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&w=800&q=80',
+    budget: {
+      totalEstimated: 1850,
+      budgetCap: 2500,
+      status: 'under',
+      currency: '$',
+    },
+    cityStops: [
+      { id: 'cs-7', cityName: 'Copenhagen', country: 'Denmark', nights: 3, orderIndex: 1 },
+      { id: 'cs-8', cityName: 'Stockholm', country: 'Sweden', nights: 4, orderIndex: 2 },
+      { id: 'cs-9', cityName: 'Oslo', country: 'Norway', nights: 4, orderIndex: 3 },
+    ],
+    updatedAt: '3 days ago',
+  },
+  {
+    id: 'trip-4',
+    title: 'Costa Rica Rainforest & Pacific Coast',
+    description: 'Eco-adventures, wildlife spotting, and beach sunsets.',
+    startDate: '2026-01-10',
+    endDate: '2026-01-20',
+    status: 'past',
+    isPublic: true,
+    coverPhotoUrl: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=800&q=80',
+    budget: {
+      totalEstimated: 1940,
+      budgetCap: 2000,
+      status: 'under',
+      currency: '$',
+    },
+    cityStops: [
+      { id: 'cs-10', cityName: 'San José', country: 'Costa Rica', nights: 2, orderIndex: 1 },
+      { id: 'cs-11', cityName: 'La Fortuna', country: 'Costa Rica', nights: 4, orderIndex: 2 },
+      { id: 'cs-12', cityName: 'Manuel Antonio', country: 'Costa Rica', nights: 4, orderIndex: 3 },
+    ],
+    updatedAt: 'Jan 2026',
+  },
+];
+
+export const MOCK_DESTINATIONS: Destination[] = [
+  {
+    id: 'dest-1',
+    cityName: 'Amsterdam',
+    country: 'Netherlands',
+    tagline: 'Known for historic canals, world-class art, and cycling culture.',
+    costIndex: 'Mid-range',
+    photoUrl: 'https://images.unsplash.com/photo-1512470876302-972faa2aa9a4?auto=format&fit=crop&w=600&q=80',
+    popularCategories: ['Culture', 'Sightseeing', 'Food'],
+  },
+  {
+    id: 'dest-2',
+    cityName: 'Tokyo',
+    country: 'Japan',
+    tagline: 'Futuristic skyscrapers meet ancient shrines and premier gastronomy.',
+    costIndex: 'Premium',
+    photoUrl: 'https://images.unsplash.com/photo-1503899036084-c55cdd92da26?auto=format&fit=crop&w=600&q=80',
+    popularCategories: ['Food', 'Culture', 'Nightlife'],
+  },
+  {
+    id: 'dest-3',
+    cityName: 'Lisbon',
+    country: 'Portugal',
+    tagline: 'Sun-drenched hills, iconic yellow trams, and vibrant coastal cuisine.',
+    costIndex: 'Budget',
+    photoUrl: 'https://images.unsplash.com/photo-1509024644558-2d56ce76a47a?auto=format&fit=crop&w=600&q=80',
+    popularCategories: ['Sightseeing', 'Food', 'Outdoors'],
+  },
+  {
+    id: 'dest-4',
+    cityName: 'Cape Town',
+    country: 'South Africa',
+    tagline: 'Dramatic mountains, pristine beaches, and rich botanical landscapes.',
+    costIndex: 'Budget',
+    photoUrl: 'https://images.unsplash.com/photo-1580618672591-eb180b1a973f?auto=format&fit=crop&w=600&q=80',
+    popularCategories: ['Outdoors', 'Sightseeing', 'Culture'],
+  },
+  {
+    id: 'dest-5',
+    cityName: 'Florence',
+    country: 'Italy',
+    tagline: 'The birthplace of Renaissance art, architecture, and Tuscan wine.',
+    costIndex: 'Mid-range',
+    photoUrl: 'https://images.unsplash.com/photo-1543429776-2782fc8e1acd?auto=format&fit=crop&w=600&q=80',
+    popularCategories: ['Culture', 'Food', 'Sightseeing'],
+  },
+  {
+    id: 'dest-6',
+    cityName: 'Banff',
+    country: 'Canada',
+    tagline: 'Turquoise glacial lakes framed by the majestic Canadian Rockies.',
+    costIndex: 'Premium',
+    photoUrl: 'https://images.unsplash.com/photo-1517411032315-54ef2cb783bb?auto=format&fit=crop&w=600&q=80',
+    popularCategories: ['Outdoors', 'Nature', 'Adventure'],
+  },
+];
