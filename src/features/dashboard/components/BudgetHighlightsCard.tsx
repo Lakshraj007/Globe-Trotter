@@ -1,5 +1,5 @@
 import React from 'react';
-import { DashboardStats } from '../types';
+import type { DashboardStats } from '../types';
 
 interface BudgetHighlightsCardProps {
   stats: DashboardStats;

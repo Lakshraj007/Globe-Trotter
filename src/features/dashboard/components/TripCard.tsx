@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Trip } from '../types';
+import type { Trip } from '../types';
 
 interface TripCardProps {
   trip: Trip;

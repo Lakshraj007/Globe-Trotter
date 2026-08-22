@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { Trip, Destination, DashboardFilter, DashboardStats } from './types';
+import type { Trip, Destination, DashboardFilter, DashboardStats } from './types';
 import { MOCK_TRIPS, MOCK_DESTINATIONS } from './mockData';
 import { DashboardHeader } from './components/DashboardHeader';
 import { TripSpotlightCard } from './components/TripSpotlightCard';

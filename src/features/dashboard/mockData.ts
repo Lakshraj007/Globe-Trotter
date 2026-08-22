@@ -1,4 +1,4 @@
-import { Trip, Destination } from './types';
+import type { Trip, Destination } from './types';
 
 /**
  * Simple local mock data for Person C Dashboard.

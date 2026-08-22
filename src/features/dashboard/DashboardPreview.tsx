@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Dashboard } from './Dashboard';
-import { Trip, Destination } from './types';
+import type { Trip, Destination } from './types';
 import { MOCK_TRIPS, MOCK_DESTINATIONS } from './mockData';
 
 type PreviewMode = 'normal' | 'loading' | 'error' | 'empty';

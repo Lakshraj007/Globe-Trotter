@@ -1,5 +1,5 @@
 import React from 'react';
-import { Trip, DashboardFilter } from '../types';
+import type { Trip, DashboardFilter } from '../types';
 import { TripCard } from './TripCard';
 
 interface TripGridProps {

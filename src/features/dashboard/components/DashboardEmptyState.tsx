@@ -1,5 +1,5 @@
 import React from 'react';
-import { Destination } from '../types';
+import type { Destination } from '../types';
 import { GetInspiredRail } from './GetInspiredRail';
 
 interface DashboardEmptyStateProps {

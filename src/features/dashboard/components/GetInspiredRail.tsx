@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { Destination } from '../types';
+import type { Destination } from '../types';
 import { DestinationCard } from './DestinationCard';
 
 interface GetInspiredRailProps {
