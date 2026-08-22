@@ -1,0 +1,80 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id        String   @id @default(cuid())
+  name      String
+  email     String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  trips Trip[]
+}
+
+model Trip {
+  id          String   @id @default(cuid())
+  userId      String
+  title       String
+  description String?
+  startDate   DateTime
+  endDate     DateTime
+  budget      Float?
+  currency    String   @default("INR")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  user      User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  cityStops CityStop[]
+
+  @@index([userId])
+}
+
+model CityStop {
+  id            String   @id @default(cuid())
+  tripId        String
+  city          String
+  country       String
+  arrivalDate   DateTime
+  departureDate DateTime
+  order         Int
+
+  trip Trip  @relation(fields: [tripId], references: [id], onDelete: Cascade)
+  days Day[]
+
+  @@index([tripId])
+}
+
+model Day {
+  id         String   @id @default(cuid())
+  cityStopId String
+  date       DateTime
+  dayNumber  Int
+
+  cityStop   CityStop   @relation(fields: [cityStopId], references: [id], onDelete: Cascade)
+  activities Activity[]
+
+  @@index([cityStopId])
+}
+
+model Activity {
+  id          String  @id @default(cuid())
+  dayId       String
+  title       String
+  description String?
+  category    String?
+  startTime   String?
+  endTime     String?
+  location    String?
+  cost        Float?
+  currency    String  @default("INR")
+  order       Int
+
+  day Day @relation(fields: [dayId], references: [id], onDelete: Cascade)
+
+  @@index([dayId])
+}

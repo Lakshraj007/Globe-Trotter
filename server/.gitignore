@@ -1,0 +1,13 @@
+node_modules
+# Keep environment variables out of version control
+dist/
+.env
+.env.*
+!.env.example
+skills-lock.json
+
+.agents/
+.claude/
+.windsurf/
+
+/src/generated/prisma
